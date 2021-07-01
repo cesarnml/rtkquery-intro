@@ -1,7 +1,12 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
+import { pokemonSlice } from './pokemon/pokemonSlice'
 
-export const store = configureStore({})
+export const store = configureStore({
+  reducer: {
+    pokemon: pokemonSlice.reducer,
+  },
+})
 
 // Typing our global app state and dispatch
 export type RootState = ReturnType<typeof store.getState>
