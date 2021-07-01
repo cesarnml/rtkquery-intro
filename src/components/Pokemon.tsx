@@ -4,6 +4,7 @@ import { useGetPokemonByNameQuery } from '../hooks'
 type Props = {
   name: string
 }
+
 export const Pokemon = ({ name }: Props) => {
   const { data, isError, isLoading } = useGetPokemonByNameQuery(name)
 

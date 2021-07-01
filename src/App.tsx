@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
+import { Pokemon } from './components/Pokemon'
 
-function App() {
-  return <div>Hello World</div>
+export const App = () => {
+  return <Pokemon name="pikachu" />
 }
-
-export default App
