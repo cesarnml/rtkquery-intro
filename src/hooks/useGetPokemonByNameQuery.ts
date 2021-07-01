@@ -1,6 +1,11 @@
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../store/store'
-import { fetchPokemonByName, selectStatusByName, selectDataByName } from '../store/pokemon/pokemonSlice'
+import {
+  fetchPokemonByName,
+  selectStatusByName,
+  selectDataByName,
+  selectErrorByName,
+} from '../store/pokemon/pokemonSlice'
 
 export function useGetPokemonByNameQuery(name: string) {
   const dispatch = useAppDispatch()
@@ -8,6 +13,8 @@ export function useGetPokemonByNameQuery(name: string) {
   const status = useAppSelector(state => selectStatusByName(state, name))
   // select the current data from the store state for the provided name
   const data = useAppSelector(state => selectDataByName(state, name))
+  const errorMessage = useAppSelector(state => selectErrorByName(state, name))
+
   useEffect(() => {
     // upon mount or name change, if status is uninitialized, send a request
     // for the pokemon name
@@ -23,5 +30,5 @@ export function useGetPokemonByNameQuery(name: string) {
   const isSuccess = status === 'fulfilled'
 
   // return the import data for the caller of the hook to use
-  return { data, isUninitialized, isLoading, isError, isSuccess }
+  return { data, errorMessage, isUninitialized, isLoading, isError, isSuccess }
 }

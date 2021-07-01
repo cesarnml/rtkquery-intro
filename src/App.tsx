@@ -14,6 +14,7 @@ export const App = () => {
         value={selectedPokemon}
         onChange={e => setSelectedPokemon(e.target.value)}
       >
+        <option value="">--Please choose an option--</option>
         {options.map(name => (
           <option key={name} value={name}>
             {name}

@@ -6,10 +6,15 @@ type Props = {
 }
 
 export const Pokemon = ({ name }: Props) => {
-  const { data, isError, isLoading } = useGetPokemonByNameQuery(name)
+  const { data, errorMessage, isError, isLoading } = useGetPokemonByNameQuery(name)
 
   if (isError) {
-    return <div>Oh no an error ocurred</div>
+    return (
+      <div>
+        <div>Oh no an error ocurred.</div>
+        <div>With error message: {errorMessage}</div>{' '}
+      </div>
+    )
   }
 
   if (isLoading) {

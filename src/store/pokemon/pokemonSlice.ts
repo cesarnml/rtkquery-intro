@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { Pokemon } from './types'
 import { RootState } from '../store'
 import axios from 'axios'
@@ -24,12 +24,9 @@ export const pokemonSlice = createSlice({
   initialState: {
     dataByName: {} as Record<string, Pokemon | undefined>,
     statusByName: {} as Record<string, RequestState | undefined>,
+    errorByName: {} as Record<string, string | undefined>,
   },
-  reducers: {
-    // addPokemon(state, action: PayloadAction<Pokemon>) {
-    //   state.dataByName[action.payload.name] = action.payload
-    // },
-  },
+  reducers: {},
   extraReducers: builder => {
     // When our request is pending:
     // - store the 'pending' state as the status for the corresponding pokemon name
@@ -47,9 +44,11 @@ export const pokemonSlice = createSlice({
     // - store the 'rejected' state as the status for the corresponding pokemon name
     builder.addCase(fetchPokemonByName.rejected, (state, action) => {
       state.statusByName[action.meta.arg] = 'rejected'
+      state.errorByName[action.meta.arg] = action.error.message
     })
   },
 })
 
 export const selectStatusByName = (state: RootState, name: string) => state.pokemon.statusByName[name]
 export const selectDataByName = (state: RootState, name: string) => state.pokemon.dataByName[name]
+export const selectErrorByName = (state: RootState, name: string) => state.pokemon.errorByName[name]
